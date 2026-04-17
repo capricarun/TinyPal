@@ -72,7 +72,7 @@ export default function MomentEntry() {
     textareaRef.current?.focus();
   }, []);
 
-  const handleBack = () => { hasText ? setShowCancelModal(true) : navigate(-1); };
+  const handleBack = () => { navigate(-1); };
   const handleCancel = () => { hasText ? setShowCancelModal(true) : navigate(-1); };
   const handleSave = () => { if (hasText) navigate("/processing"); };
   const handleConfirmYes = () => { setShowCancelModal(false); navigate("/", { state: { draftSaved: true } }); };
@@ -147,7 +147,7 @@ export default function MomentEntry() {
               height: "100%",
               alignItems: "flex-start",
               bgcolor: "white",
-              borderRadius: "16px",
+              borderRadius: "100px",
             },
             "& .MuiInputBase-inputMultiline": { height: "100% \!important", overflowY: "auto \!important" },
           }}
@@ -164,9 +164,9 @@ export default function MomentEntry() {
           sx={{
             bgcolor: hasText ? "rgba(108,77,196,0.5)" : "#6c4dc4",
             color: "white",
-            borderRadius: "16px",
+            borderRadius: "100px",
             px: 2.5,
-            height: "40px",
+            height: "32px",
             boxShadow: "none",
             "&:hover": { bgcolor: hasText ? "rgba(108,77,196,0.6)" : "#5a3db8", boxShadow: "none" },
           }}
@@ -183,9 +183,9 @@ export default function MomentEntry() {
             sx={{
               borderColor: "#b49ae8",
               color: "#2d2047",
-              borderRadius: "16px",
+              borderRadius: "100px",
               px: 2,
-              height: "40px",
+              height: "32px",
               "&:hover": { borderColor: "#6c4dc4", bgcolor: "rgba(108,77,196,0.05)" },
             }}
           >
@@ -201,9 +201,9 @@ export default function MomentEntry() {
             sx={{
               bgcolor: hasText ? "#6c4dc4" : "rgba(108,77,196,0.38)",
               color: "white",
-              borderRadius: "16px",
+              borderRadius: "100px",
               px: 2,
-              height: "40px",
+              height: "32px",
               boxShadow: "none",
               "&:hover": { bgcolor: hasText ? "#5a3db8" : "rgba(108,77,196,0.38)", boxShadow: "none" },
             }}
@@ -233,7 +233,7 @@ export default function MomentEntry() {
             variant="outlined"
             startIcon={<CloseIcon />}
             onClick={handleConfirmNo}
-            sx={{ borderColor: "#b49ae8", color: "#2d2047", px: 3, borderRadius: 8 }}
+            sx={{ borderColor: "#b49ae8", color: "#2d2047", px: 3, borderRadius: "100px", height: "32px" }}
           >
             No
           </Button>
@@ -241,7 +241,7 @@ export default function MomentEntry() {
             variant="contained"
             startIcon={<CheckIcon />}
             onClick={handleConfirmYes}
-            sx={{ bgcolor: "#6c4dc4", px: 3, borderRadius: 8, boxShadow: "none" }}
+            sx={{ bgcolor: "#6c4dc4", px: 3, borderRadius: "100px", height: "32px", boxShadow: "none" }}
           >
             Yes
           </Button>

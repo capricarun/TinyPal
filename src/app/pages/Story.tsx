@@ -119,14 +119,11 @@ export default function Story() {
           {/* Illustration area */}
           <Box
             sx={{
-              background: "linear-gradient(135deg, #e8d8f8 0%, #fde8e0 100%)",
-              borderRadius: 4,
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               height: 200,
               mb: 3,
-              overflow: "hidden",
             }}
           >
             <BookIllustration />

@@ -1,0 +1,28 @@
+/* Underlined links (patterns work link, "See all moments", "What's a Pattern") */
+.underline {
+  cursor: pointer !important;
+  transition: opacity 0.2s ease;
+}
+
+.underline:hover {
+  opacity: 0.8;
+}
+
+.underline:active {
+  opacity: 0.6;
+}
+
+/* Purple underlined links specifically */
+.text-\[\#6c4dc4\].underline {
+  cursor: pointer !important;
+  transition: all 0.2s ease;
+}
+
+.text-\[\#6c4dc4\].underline:hover {
+  opacity: 0.85;
+  text-decoration-thickness: 2px;
+}
+
+.text-\[\#6c4dc4\].underline:active {
+  opacity: 0.7;
+}

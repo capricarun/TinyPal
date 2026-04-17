@@ -1,0 +1,130 @@
+/* =============================================================================
+   TinyPal – Font Definitions
+   Fonts are loaded from Google Fonts CDN (internet access required in dev).
+   For offline / self-hosted use, download the fonts and update the src URLs.
+   ============================================================================= */
+
+/* ── Inter (variable, weights 100–900) ─────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900&display=swap');
+
+/* ── Roboto (weights 400, 700) ─────────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+/* ── Noto Sans (weight 400) ────────────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400&display=swap');
+
+/* =============================================================================
+   Material Icons – ligature icon font
+   Figma Make references these as font-family strings (e.g. "home", "close").
+   The @font-face family names match the exact strings used in the codebase so
+   existing Tailwind utility classes continue to work without modification.
+   ============================================================================= */
+
+/* Filled icons  →  font-['Material_Icons:Regular',sans-serif] */
+@font-face {
+  font-family: 'Material Icons:Regular';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url('https://fonts.gstatic.com/s/materialicons/v143/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2') format('woff2');
+}
+
+/* Outlined icons  →  font-['Material_Icons_Outlined:Regular',sans-serif] */
+@font-face {
+  font-family: 'Material Icons_Outlined:Regular';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url('https://fonts.gstatic.com/s/materialiconsoutlined/v109/gok-H7zzDkdnRel8-DQ6KAXJ69wP1tGnf4ZGhUcel5euIg.woff2') format('woff2');
+}
+
+/* =============================================================================
+   Inter – Figma colon-style weight aliases
+   Figma Make exports every font weight as a distinct font-family name.
+   These @font-face blocks map those names to the variable Inter font above
+   so the Tailwind classes work without any code changes.
+   ============================================================================= */
+
+@font-face {
+  font-family: 'Inter:Regular';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiJ-Ek-_EeA.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Inter:Medium';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiJ-Ek-_EeA.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Inter:Semi_Bold';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiJ-Ek-_EeA.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Inter:Bold';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiJ-Ek-_EeA.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Inter:Extra_Bold';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url('https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiJ-Ek-_EeA.woff2') format('woff2');
+}
+
+/* =============================================================================
+   Roboto – Figma colon-style weight aliases
+   ============================================================================= */
+
+@font-face {
+  font-family: 'Roboto:Regular';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('https://fonts.gstatic.com/s/roboto/v32/KFOmCnqEu92Fr1Mu4mxKKTU1Kg.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Roboto:Bold';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('https://fonts.gstatic.com/s/roboto/v32/KFOlCnqEu92Fr1MmWUlfBBc4AMP6lQ.woff2') format('woff2');
+}
+
+/* =============================================================================
+   Noto Sans – Figma colon-style alias
+   ============================================================================= */
+
+@font-face {
+  font-family: 'Noto_Sans:Regular';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('https://fonts.gstatic.com/s/notosans/v36/o-0bIpQlx3QUlC5A4PNjXhFlY9aA5W0.woff2') format('woff2');
+}
+
+/* =============================================================================
+   Global icon-font rendering helper
+   Ensures ligature rendering is enabled for all Material Icon elements.
+   ============================================================================= */
+[class*="Material_Icons"] {
+  font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-variant-ligatures: discretionary-ligatures;
+  user-select: none;
+}

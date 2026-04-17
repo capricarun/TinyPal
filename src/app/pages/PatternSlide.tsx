@@ -56,17 +56,22 @@ export default function PatternSlide({ patternNumber, title, description, insigh
         </IconButton>
       </Box>
 
-      {/* Step dots */}
+      {/* Step progress indicators — current bar animates via `progress` prop */}
       <Box sx={{ display: "flex", gap: 1, px: 3, mb: 2 }}>
         {[1, 2, 3, 4].map((n) => (
-          <Box
+          <LinearProgress
             key={n}
+            variant="determinate"
+            value={n < patternNumber ? 100 : n === patternNumber ? progress : 0}
             sx={{
               flex: 1,
               height: 4,
               borderRadius: 2,
-              bgcolor: n <= patternNumber ? "#6c4dc4" : "#d8ccfa",
-              transition: "background 0.3s",
+              bgcolor: "#d8ccfa",
+              "& .MuiLinearProgress-bar": {
+                bgcolor: "#6c4dc4",
+                transition: n === patternNumber ? "transform 0.15s linear" : "none",
+              },
             }}
           />
         ))}
@@ -120,18 +125,6 @@ export default function PatternSlide({ patternNumber, title, description, insigh
             </Box>
           </CardContent>
         </Card>
-      </Box>
-
-      {/* Auto-advance progress bar */}
-      <Box sx={{ px: 3, pt: 2, pb: 0.5 }}>
-        <Typography variant="caption" sx={{ color: "#7b6e8f", display: "block", mb: 0.5, textAlign: "center" }}>
-          {patternNumber < 4 ? "Next pattern in a moment..." : "Tap 'Start Adding Moments' to begin"}
-        </Typography>
-        <LinearProgress
-          variant="determinate"
-          value={progress}
-          sx={{ height: 3, borderRadius: 2, bgcolor: "#d8ccfa", "& .MuiLinearProgress-bar": { bgcolor: "#6c4dc4" } }}
-        />
       </Box>
 
       <Box sx={{ display: "flex", justifyContent: "center", py: 1.5 }}>

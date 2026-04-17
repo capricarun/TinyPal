@@ -42,7 +42,6 @@ export default function Pattern4() {
             sx={{
               bgcolor: "#6c4dc4",
               borderRadius: "16px",
-              py: 1.8,
               fontSize: 17,
               fontWeight: 700,
               boxShadow: "0 4px 20px rgba(108,77,196,0.32)",

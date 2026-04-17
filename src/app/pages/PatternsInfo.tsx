@@ -120,7 +120,6 @@ export default function PatternsInfo() {
           sx={{
             bgcolor: "#6c4dc4",
             borderRadius: "16px",
-            py: 1.8,
             fontSize: 16,
             fontWeight: 700,
             boxShadow: "0 4px 16px rgba(108,77,196,0.28)",

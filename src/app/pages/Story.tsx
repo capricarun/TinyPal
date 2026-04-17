@@ -87,7 +87,6 @@ export default function Story() {
               bgcolor: "#6c4dc4",
               color: "white",
               fontWeight: 700,
-              py: 1.5,
               borderRadius: "16px",
               mb: 2,
               boxShadow: "0 4px 16px rgba(108,77,196,0.28)",

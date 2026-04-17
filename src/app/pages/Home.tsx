@@ -316,12 +316,12 @@ export default function Home() {
           variant="filled"
           sx={{
             width: "100%",
-            bgcolor: "#6c4dc4",
-            color: "#ffffff",
+            bgcolor: "#97c7ab",
+            color: "#000000",
             fontWeight: 600,
             borderRadius: "12px",
-            "& .MuiAlert-icon": { color: "#ffffff" },
-            "& .MuiAlert-action .MuiIconButton-root": { color: "#ffffff" },
+            "& .MuiAlert-icon": { color: "#000000" },
+            "& .MuiAlert-action .MuiIconButton-root": { color: "#000000" },
           }}
         >
           Your moment is saved in draft

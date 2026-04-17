@@ -29,18 +29,29 @@ const CONFETTI_DATA = [
   { left: 100, top: 230, w: 8,  h: 13, color: "#ff6b9d",  rot: 165,  delay: 0.35 },
 ];
 
+const TICK_MS = 50;
+
 export default function Processing() {
   const navigate = useNavigate();
   const [step, setStep] = useState(0);
   const [fading, setFading] = useState(false);
+  const [stepProgress, setStepProgress] = useState(0);
 
   useEffect(() => {
     if (step >= 4) return;
+    setStepProgress(0);
+    const totalTicks = STEP_DURATION / TICK_MS;
+    let tick = 0;
+    const interval = setInterval(() => {
+      tick++;
+      setStepProgress(Math.min(100, Math.round((tick / totalTicks) * 100)));
+    }, TICK_MS);
     const timer = setTimeout(() => {
+      clearInterval(interval);
       setFading(true);
-      setTimeout(() => { setStep((s) => s + 1); setFading(false); }, 280);
+      setTimeout(() => { setStep((s) => s + 1); setFading(false); setStepProgress(0); }, 280);
     }, STEP_DURATION);
-    return () => clearTimeout(timer);
+    return () => { clearInterval(interval); clearTimeout(timer); };
   }, [step]);
 
   return (
@@ -76,7 +87,7 @@ export default function Processing() {
       `}</style>
 
       {step < 4 ? (
-        <ProcessingScreen step={step} />
+        <ProcessingScreen step={step} stepProgress={stepProgress} />
       ) : (
         <MomentSavedScreen onNavigate={() => navigate("/story")} />
       )}
@@ -84,7 +95,7 @@ export default function Processing() {
   );
 }
 
-function ProcessingScreen({ step }: { step: number }) {
+function ProcessingScreen({ step, stepProgress }: { step: number; stepProgress: number }) {
   return (
     <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", height: "100%", px: 3, pt: 3 }}>
       {/* Step title */}
@@ -105,15 +116,16 @@ function ProcessingScreen({ step }: { step: number }) {
             <Box key={i} sx={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: 1.5 }}>
               <LinearProgress
                 variant="determinate"
-                value={isComplete ? 100 : isCurrent ? 60 : 0}
+                value={isComplete ? 100 : isCurrent ? stepProgress : 0}
                 sx={{
                   width: "100%",
                   height: 4,
                   borderRadius: 2,
-                  bgcolor: isInactive ? "#d8ccfa" : "#d8ccfa",
+                  bgcolor: "#d8ccfa",
                   "& .MuiLinearProgress-bar": {
                     bgcolor: "#6c4dc4",
                     borderRadius: 2,
+                    transition: isCurrent ? "transform 0.05s linear" : "none",
                   },
                 }}
               />
@@ -183,7 +195,7 @@ function MomentSavedScreen({ onNavigate }: { onNavigate: () => void }) {
           fullWidth
           variant="contained"
           onClick={onNavigate}
-          sx={{ bgcolor: "#6c4dc4", borderRadius: "16px", py: 1.8, mb: 1, fontSize: 17, boxShadow: "0 4px 20px rgba(108,77,196,0.32)" }}
+          sx={{ bgcolor: "#6c4dc4", borderRadius: "16px", mb: 1, fontSize: 17, boxShadow: "0 4px 20px rgba(108,77,196,0.32)" }}
         >
           See insights
         </Button>

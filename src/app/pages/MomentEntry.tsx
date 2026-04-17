@@ -166,7 +166,7 @@ export default function MomentEntry() {
             color: "white",
             borderRadius: "16px",
             px: 2.5,
-            py: 1.2,
+            height: "40px",
             boxShadow: "none",
             "&:hover": { bgcolor: hasText ? "rgba(108,77,196,0.6)" : "#5a3db8", boxShadow: "none" },
           }}
@@ -185,7 +185,7 @@ export default function MomentEntry() {
               color: "#2d2047",
               borderRadius: "16px",
               px: 2,
-              py: 1.2,
+              height: "40px",
               "&:hover": { borderColor: "#6c4dc4", bgcolor: "rgba(108,77,196,0.05)" },
             }}
           >
@@ -203,7 +203,7 @@ export default function MomentEntry() {
               color: "white",
               borderRadius: "16px",
               px: 2,
-              py: 1.2,
+              height: "40px",
               boxShadow: "none",
               "&:hover": { bgcolor: hasText ? "#5a3db8" : "rgba(108,77,196,0.38)", boxShadow: "none" },
             }}

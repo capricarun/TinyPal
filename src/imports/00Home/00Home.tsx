@@ -1,80 +1,6 @@
 import imgImage1 from "./27b53ab8528e63d8971364693523004069a58e71.png";
 import imgImage2 from "./50ebb93bc98b2071cfe1a0cf8e4d9aff904279a5.png";
 
-function Frame6() {
-  return (
-    <div className="content-stretch flex items-center justify-center relative shrink-0">
-      <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold leading-[normal] not-italic relative shrink-0 text-[#2d2047] text-[15px] whitespace-nowrap">10:01</p>
-    </div>
-  );
-}
-
-function Frame() {
-  return (
-    <div className="content-stretch flex flex-col items-center justify-center relative shrink-0 w-[14px]">
-      <p className="font-['Material_Icons:Regular',sans-serif] leading-[normal] not-italic relative shrink-0 text-[14px] text-[rgba(0,0,0,0.8)] text-center w-full">signal_cellular_alt</p>
-    </div>
-  );
-}
-
-function Frame2() {
-  return (
-    <div className="content-stretch flex items-center relative shrink-0">
-      <Frame />
-    </div>
-  );
-}
-
-function Frame1() {
-  return (
-    <div className="content-stretch flex flex-col items-center justify-center relative shrink-0 w-[14px]">
-      <p className="font-['Material_Icons:Regular',sans-serif] leading-[normal] not-italic relative shrink-0 text-[14px] text-[rgba(0,0,0,0.8)] text-center w-full">wifi</p>
-    </div>
-  );
-}
-
-function Frame3() {
-  return (
-    <div className="content-stretch flex items-center relative shrink-0">
-      <Frame1 />
-    </div>
-  );
-}
-
-function Frame8() {
-  return (
-    <div className="content-stretch flex flex-col items-center justify-center relative shrink-0 w-[14px]">
-      <p className="font-['Material_Icons:Regular',sans-serif] leading-[normal] not-italic relative shrink-0 text-[14px] text-[rgba(0,0,0,0.8)] text-center w-full">battery_full</p>
-    </div>
-  );
-}
-
-function Frame4() {
-  return (
-    <div className="content-stretch flex items-center relative shrink-0">
-      <Frame8 />
-    </div>
-  );
-}
-
-function Frame5() {
-  return (
-    <div className="content-stretch flex gap-[5px] items-center relative shrink-0">
-      <Frame2 />
-      <Frame3 />
-      <Frame4 />
-    </div>
-  );
-}
-
-function Frame7() {
-  return (
-    <div className="content-stretch flex items-center justify-between relative shrink-0 w-full">
-      <Frame6 />
-      <Frame5 />
-    </div>
-  );
-}
 
 function Frame27() {
   return (
@@ -434,8 +360,7 @@ function Frame19() {
 
 function Frame22() {
   return (
-    <div className="content-stretch flex flex-col gap-[40px] h-[835px] items-start relative shrink-0 w-full">
-      <Frame7 />
+    <div className="content-stretch flex flex-col gap-[40px] items-start relative shrink-0 w-full">
       <Frame19 />
     </div>
   );

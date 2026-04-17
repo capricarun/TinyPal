@@ -75,7 +75,7 @@ export default function MomentEntry() {
   const handleBack = () => { hasText ? setShowCancelModal(true) : navigate(-1); };
   const handleCancel = () => { hasText ? setShowCancelModal(true) : navigate(-1); };
   const handleSave = () => { if (hasText) navigate("/processing"); };
-  const handleConfirmYes = () => { setShowCancelModal(false); navigate(-1); };
+  const handleConfirmYes = () => { setShowCancelModal(false); navigate("/", { state: { draftSaved: true } }); };
   const handleConfirmNo = () => setShowCancelModal(false);
 
   return (

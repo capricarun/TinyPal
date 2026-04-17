@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useNavigate } from "react-router";
+import { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
@@ -15,6 +15,8 @@ import PersonIcon from "@mui/icons-material/Person";
 import TrackChangesIcon from "@mui/icons-material/TrackChanges";
 import BedtimeIcon from "@mui/icons-material/Bedtime";
 import MoodIcon from "@mui/icons-material/Mood";
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
 
 const GOALS = [
   { label: "All Goals", icon: null },
@@ -80,8 +82,18 @@ const GOAL_CARDS = [
 
 export default function Home() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [activeGoal, setActiveGoal] = useState("All Goals");
   const [navValue, setNavValue] = useState(0);
+  const [showDraftToast, setShowDraftToast] = useState(false);
+
+  useEffect(() => {
+    if ((location.state as { draftSaved?: boolean } | null)?.draftSaved) {
+      setShowDraftToast(true);
+      // Clear state so the toast doesn't re-appear on back/forward navigation
+      window.history.replaceState({}, "");
+    }
+  }, []);
 
   return (
     <Box
@@ -241,8 +253,7 @@ export default function Home() {
               <Box
                 sx={{
                   background: card.strip,
-                  px: 2,
-                  py: 1,
+                  p: 1.5,
                   display: "flex",
                   alignItems: "center",
                   gap: 1,
@@ -290,6 +301,32 @@ export default function Home() {
         </Box>
 
       </Box>
+
+      {/* Draft saved toast */}
+      <Snackbar
+        open={showDraftToast}
+        autoHideDuration={3000}
+        onClose={() => setShowDraftToast(false)}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        sx={{ top: { xs: 16 } }}
+      >
+        <Alert
+          onClose={() => setShowDraftToast(false)}
+          severity="success"
+          variant="filled"
+          sx={{
+            width: "100%",
+            bgcolor: "#6c4dc4",
+            color: "#ffffff",
+            fontWeight: 600,
+            borderRadius: "12px",
+            "& .MuiAlert-icon": { color: "#ffffff" },
+            "& .MuiAlert-action .MuiIconButton-root": { color: "#ffffff" },
+          }}
+        >
+          Your moment is saved in draft
+        </Alert>
+      </Snackbar>
 
       {/* Bottom Navigation */}
       <BottomNavigation

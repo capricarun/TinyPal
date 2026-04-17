@@ -3,6 +3,7 @@ import { useState } from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import PatternSlide from "./PatternSlide";
+import OutlinedFlagIcon from "@mui/icons-material/OutlinedFlag";
 
 export default function Pattern4() {
   const navigate = useNavigate();
@@ -12,9 +13,9 @@ export default function Pattern4() {
     <Box sx={{ position: "relative", height: "100vh" }}>
       <PatternSlide
         patternNumber={4}
-        title="Growth Highlights"
-        description="Jiyu shows remarkable independence during creative play — building, drawing, and storytelling. She solves problems more confidently now than three months ago."
-        insight="She thrives when given space to explore without guidance. Resist the urge to correct; instead, ask open questions like 'What happens next?' to deepen her thinking."
+        title="Personalised goals"
+        subtitle={"Capture more moments,\nuncover your child's unique patterns."}
+        icon={<OutlinedFlagIcon sx={{ fontSize: 80 }} />}
         progress={100}
         onClose={() => navigate("/")}
       />

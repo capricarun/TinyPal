@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import PatternSlide from "./PatternSlide";
+import ArticleOutlinedIcon from "@mui/icons-material/ArticleOutlined";
 
 export default function Pattern1() {
   const navigate = useNavigate();
@@ -22,9 +23,9 @@ export default function Pattern1() {
   return (
     <PatternSlide
       patternNumber={1}
-      title="Mealtime Resistance"
-      description="Jiyu shows a recurring pattern of pushing food away and becoming upset during dinner. This behaviour clusters on evenings when the routine was disrupted."
-      insight="This often happens after 5 pm when Jiyu is fatigued. Consider shifting dinner 30 minutes earlier to reduce friction."
+      title="Add Moments"
+      subtitle={"Good or bad,\nevery little detail matters"}
+      icon={<ArticleOutlinedIcon sx={{ fontSize: 80 }} />}
       progress={progress}
       onClose={() => navigate("/")}
     />

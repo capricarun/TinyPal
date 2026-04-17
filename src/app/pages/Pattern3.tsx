@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import PatternSlide from "./PatternSlide";
+import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 
 export default function Pattern3() {
   const navigate = useNavigate();
@@ -22,9 +23,9 @@ export default function Pattern3() {
   return (
     <PatternSlide
       patternNumber={3}
-      title="Connection Moments"
-      description="Jiyu responds warmest to one-on-one quiet time. When you sit beside her without screens or distractions, she opens up about her day more readily."
-      insight="Reading together at bedtime creates the strongest bonding window. Even 10 minutes makes a measurable difference in next-morning mood."
+      title="Access Patterns"
+      subtitle={"Understand Jiyu's\ntriggers, motivations, and sweet spot."}
+      icon={<LockOpenOutlinedIcon sx={{ fontSize: 80 }} />}
       progress={progress}
       onClose={() => navigate("/")}
     />

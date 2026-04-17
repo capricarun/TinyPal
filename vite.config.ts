@@ -49,6 +49,7 @@ function figmaAssetPlugin(): Plugin {
 }
 
 export default defineConfig({
+  base: '/TinyPal/',
   plugins: [react(), tailwindcss(), figmaAssetPlugin()],
   resolve: {
     alias: {

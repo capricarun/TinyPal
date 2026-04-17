@@ -147,7 +147,7 @@ export default function MomentEntry() {
               height: "100%",
               alignItems: "flex-start",
               bgcolor: "white",
-              borderRadius: "100px",
+              borderRadius: "16px",
             },
             "& .MuiInputBase-inputMultiline": { height: "100% \!important", overflowY: "auto \!important" },
           }}

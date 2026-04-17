@@ -1,6 +1,7 @@
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
+import LinearProgress from "@mui/material/LinearProgress";
 import CloseIcon from "@mui/icons-material/Close";
 
 interface PatternSlideProps {
@@ -61,22 +62,33 @@ export default function PatternSlide({
         </IconButton>
       </Box>
 
-      {/* Icon card */}
-      <Box
-        sx={{
-          flex: 1,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          px: 4,
-          pt: 2,
-          pb: 1,
-        }}
-      >
+      {/* Progress bars (animate current slide) */}
+      <Box sx={{ display: "flex", gap: 1, px: 3, mb: 2 }}>
+        {[1, 2, 3, 4].map((n) => (
+          <LinearProgress
+            key={n}
+            variant="determinate"
+            value={n < patternNumber ? 100 : n === patternNumber ? progress : 0}
+            sx={{
+              flex: 1,
+              height: 4,
+              borderRadius: 2,
+              bgcolor: "#d8ccfa",
+              "& .MuiLinearProgress-bar": {
+                bgcolor: "#6c4dc4",
+                transition: n === patternNumber ? "transform 0.15s linear" : "none",
+              },
+            }}
+          />
+        ))}
+      </Box>
+
+      {/* Icon card — fixed height 150px */}
+      <Box sx={{ display: "flex", justifyContent: "center", px: 4 }}>
         <Box
           sx={{
             width: 200,
-            height: 230,
+            height: 150,
             borderRadius: "28px",
             bgcolor: "#e6e0f8",
             display: "flex",
@@ -89,40 +101,42 @@ export default function PatternSlide({
         </Box>
       </Box>
 
-      {/* Text + dots */}
-      <Box sx={{ px: 4, pb: 5, textAlign: "center" }}>
+      {/* Title & subtitle */}
+      <Box sx={{ px: 4, mt: 2.5, textAlign: "center" }}>
         <Typography
-          variant="h4"
-          sx={{ fontWeight: 800, color: "#2d2047", mb: 1.5, lineHeight: 1.2 }}
+          sx={{ fontWeight: 800, color: "#2d2047", mb: 1.5, lineHeight: 1.2, fontSize: 24 }}
         >
           {title}
         </Typography>
         <Typography
           variant="body1"
-          sx={{ color: "#7b6e8f", lineHeight: 1.65, mb: 4, fontSize: 16, whiteSpace: "pre-line" }}
+          sx={{ color: "#7b6e8f", lineHeight: 1.65, fontSize: 16, whiteSpace: "pre-line" }}
         >
           {subtitle}
         </Typography>
+      </Box>
 
-        {/* Progress dots */}
-        <Box sx={{ display: "flex", gap: 1, justifyContent: "center", alignItems: "center" }}>
-          {[1, 2, 3, 4].map((n) => {
-            const isActive = n === patternNumber;
-            const isPast = n < patternNumber;
-            return (
-              <Box
-                key={n}
-                sx={{
-                  height: 8,
-                  width: isActive ? 28 : 8,
-                  borderRadius: "100px",
-                  bgcolor: isActive || isPast ? "#6c4dc4" : "rgba(108,77,196,0.22)",
-                  transition: "width 0.3s ease, background 0.3s ease",
-                }}
-              />
-            );
-          })}
-        </Box>
+      {/* Flex spacer pushes dots to bottom */}
+      <Box sx={{ flex: 1 }} />
+
+      {/* Progress dots */}
+      <Box sx={{ display: "flex", gap: 1, justifyContent: "center", alignItems: "center", pb: 10 }}>
+        {[1, 2, 3, 4].map((n) => {
+          const isActive = n === patternNumber;
+          const isPast = n < patternNumber;
+          return (
+            <Box
+              key={n}
+              sx={{
+                height: 8,
+                width: isActive ? 28 : 8,
+                borderRadius: "100px",
+                bgcolor: isActive || isPast ? "#6c4dc4" : "rgba(108,77,196,0.22)",
+                transition: "width 0.3s ease, background 0.3s ease",
+              }}
+            />
+          );
+        })}
       </Box>
     </Box>
   );

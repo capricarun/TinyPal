@@ -54,7 +54,7 @@ export const tinyPalTheme = createTheme({
     },
     MuiCard: {
       styleOverrides: {
-        root: { borderRadius: 20, boxShadow: "0 2px 16px rgba(107,77,196,0.08)" },
+        root: { borderRadius: 16, boxShadow: "0 2px 16px rgba(107,77,196,0.08)" },
       },
     },
     MuiBottomNavigation: {

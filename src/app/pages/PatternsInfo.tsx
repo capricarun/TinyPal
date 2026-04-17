@@ -67,7 +67,7 @@ export default function PatternsInfo() {
 
         <Box sx={{ display: "flex", flexDirection: "column", gap: 1.5 }}>
           {HOW_IT_WORKS.map(({ step, icon, title, desc }) => (
-            <Card key={step} sx={{ borderRadius: 3, border: "1px solid #d9cbff", boxShadow: "none" }}>
+            <Card key={step} sx={{ borderRadius: "16px", border: "1px solid #d9cbff", boxShadow: "none" }}>
               <CardContent sx={{ p: 2.5, display: "flex", gap: 2, alignItems: "flex-start" }}>
                 <Avatar sx={{ bgcolor: "#6c4dc4", width: 40, height: 40, flexShrink: 0 }}>
                   {icon}
@@ -86,7 +86,7 @@ export default function PatternsInfo() {
         </Box>
 
         {/* Example */}
-        <Card sx={{ mt: 2.5, borderRadius: 3, bgcolor: "rgba(108,77,196,0.06)", border: "1px solid rgba(108,77,196,0.15)", boxShadow: "none" }}>
+        <Card sx={{ mt: 2.5, borderRadius: "16px", bgcolor: "rgba(108,77,196,0.06)", border: "1px solid rgba(108,77,196,0.15)", boxShadow: "none" }}>
           <CardContent sx={{ p: 2.5 }}>
             <Typography variant="overline" sx={{ color: "#6c4dc4", fontWeight: 700, letterSpacing: 1, display: "block", mb: 1 }}>
               EXAMPLE PATTERN

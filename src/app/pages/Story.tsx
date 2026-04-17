@@ -111,7 +111,7 @@ export default function Story() {
           </Box>
 
           {/* Patterns section */}
-          <Box sx={{ mb: 2 }}>
+          <Box sx={{ mb: 2, textAlign: "center" }}>
             <Typography
               variant="h3"
               sx={{
@@ -119,6 +119,7 @@ export default function Story() {
                 color: "#6c4dc4",
                 letterSpacing: 2,
                 mb: 1,
+                fontSize: 32,
               }}
             >
               Patterns
@@ -131,6 +132,8 @@ export default function Story() {
                 textDecoration: "underline",
                 cursor: "pointer",
                 fontSize: 14,
+                display: "block",
+                textAlign: "center",
               }}
             >
               What's a Pattern?

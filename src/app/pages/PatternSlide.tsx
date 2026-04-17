@@ -78,7 +78,7 @@ export default function PatternSlide({ patternNumber, title, description, insigh
         <Card
           sx={{
             background: GRADIENT_COLORS[patternNumber],
-            borderRadius: 4,
+            borderRadius: "16px",
             boxShadow: "0 6px 24px rgba(108,77,196,0.25)",
           }}
         >
@@ -96,7 +96,7 @@ export default function PatternSlide({ patternNumber, title, description, insigh
         </Card>
 
         {/* Description */}
-        <Card sx={{ borderRadius: 3, border: "1px solid #d9cbff", boxShadow: "none" }}>
+        <Card sx={{ borderRadius: "16px", border: "1px solid #d9cbff", boxShadow: "none" }}>
           <CardContent sx={{ p: 2.5 }}>
             <Typography variant="body1" sx={{ color: "#2d2047", lineHeight: 1.7, fontSize: 15 }}>
               {description}
@@ -105,7 +105,7 @@ export default function PatternSlide({ patternNumber, title, description, insigh
         </Card>
 
         {/* Insight */}
-        <Card sx={{ borderRadius: 3, bgcolor: "rgba(108,77,196,0.06)", border: "1px solid rgba(108,77,196,0.15)", boxShadow: "none" }}>
+        <Card sx={{ borderRadius: "16px", bgcolor: "rgba(108,77,196,0.06)", border: "1px solid rgba(108,77,196,0.15)", boxShadow: "none" }}>
           <CardContent sx={{ p: 2.5 }}>
             <Box sx={{ display: "flex", gap: 1.5, alignItems: "flex-start" }}>
               <LightbulbOutlinedIcon sx={{ color: "#6c4dc4", mt: 0.3, flexShrink: 0 }} />

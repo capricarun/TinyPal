@@ -46,4 +46,4 @@ export const router = createBrowserRouter([
     path: "/processing",
     Component: Processing,
   },
-]);
+], { basename: "/TinyPal" });

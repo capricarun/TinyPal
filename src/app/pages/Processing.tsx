@@ -12,7 +12,8 @@ const STEPS = [
   "Almost there...",
 ];
 
-const STEP_DURATION = 3000;
+const STEP_DURATION = 1000;
+const TICK_MS = 50;
 
 const CONFETTI_DATA = [
   { left: 46,  top: 140, w: 8,  h: 13, color: "#4ecdc4",  rot: 158,  delay: 0    },
@@ -29,12 +30,47 @@ const CONFETTI_DATA = [
   { left: 100, top: 230, w: 8,  h: 13, color: "#ff6b9d",  rot: 165,  delay: 0.35 },
 ];
 
-const TICK_MS = 50;
+/* ── Tinu mascot SVG ── */
+function TinuMascot() {
+  return (
+    <svg viewBox="0 0 260 260" width="220" height="220" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <filter id="tinu-glow" x="-60%" y="-60%" width="220%" height="220%">
+          <feGaussianBlur stdDeviation="24" />
+        </filter>
+      </defs>
+
+      {/* Colourful glow blobs */}
+      <ellipse cx="112" cy="108" rx="72" ry="70" fill="#7c3aed" opacity="0.65" filter="url(#tinu-glow)" />
+      <ellipse cx="158" cy="104" rx="66" ry="62" fill="#e879f9" opacity="0.60" filter="url(#tinu-glow)" />
+      <ellipse cx="145" cy="162" rx="70" ry="65" fill="#f97316" opacity="0.58" filter="url(#tinu-glow)" />
+      <ellipse cx="100" cy="148" rx="62" ry="60" fill="#3b82f6" opacity="0.50" filter="url(#tinu-glow)" />
+
+      {/* White face */}
+      <circle cx="130" cy="128" r="80" fill="white" />
+
+      {/* Orange glasses — left lens */}
+      <circle cx="105" cy="124" r="27" fill="none" stroke="#f97316" strokeWidth="10" strokeLinejoin="round" />
+      {/* Orange glasses — right lens */}
+      <circle cx="157" cy="124" r="27" fill="none" stroke="#f97316" strokeWidth="10" strokeLinejoin="round" />
+      {/* Temple left */}
+      <line x1="78"  y1="122" x2="63"  y2="117" stroke="#f97316" strokeWidth="10" strokeLinecap="round" />
+      {/* Temple right */}
+      <line x1="184" y1="122" x2="199" y2="117" stroke="#f97316" strokeWidth="10" strokeLinecap="round" />
+
+      {/* Eyes */}
+      <ellipse cx="105" cy="128" rx="4.5" ry="6" fill="#1e1b4b" />
+      <ellipse cx="157" cy="128" rx="4.5" ry="6" fill="#1e1b4b" />
+
+      {/* Blue smile */}
+      <path d="M 112 150 Q 130 165 148 150" fill="none" stroke="#3b5bdb" strokeWidth="5.5" strokeLinecap="round" />
+    </svg>
+  );
+}
 
 export default function Processing() {
   const navigate = useNavigate();
   const [step, setStep] = useState(0);
-  const [fading, setFading] = useState(false);
   const [stepProgress, setStepProgress] = useState(0);
 
   useEffect(() => {
@@ -48,8 +84,8 @@ export default function Processing() {
     }, TICK_MS);
     const timer = setTimeout(() => {
       clearInterval(interval);
-      setFading(true);
-      setTimeout(() => { setStep((s) => s + 1); setFading(false); setStepProgress(0); }, 280);
+      setStep((s) => s + 1);
+      setStepProgress(0);
     }, STEP_DURATION);
     return () => { clearInterval(interval); clearTimeout(timer); };
   }, [step]);
@@ -65,8 +101,6 @@ export default function Processing() {
         flexDirection: "column",
         background: "linear-gradient(160deg, #f7eff5 0%, #fbf5fc 50%, #fdf4f0 100%)",
         overflow: "hidden",
-        transition: "opacity 0.28s ease",
-        opacity: fading ? 0 : 1,
       }}
     >
       <style>{`
@@ -111,7 +145,6 @@ function ProcessingScreen({ step, stepProgress }: { step: number; stepProgress: 
         {[0, 1, 2, 3].map((i) => {
           const isComplete = i < step;
           const isCurrent = i === step;
-          const isInactive = i > step;
           return (
             <Box key={i} sx={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: 1.5 }}>
               <LinearProgress
@@ -150,12 +183,12 @@ function ProcessingScreen({ step, stepProgress }: { step: number; stepProgress: 
         })}
       </Box>
 
-      {/* Mascot placeholder */}
+      {/* Tinu mascot */}
       <Box
         className="mascot-float"
         sx={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center" }}
       >
-        <Typography sx={{ fontSize: 120, lineHeight: 1 }}>🧸</Typography>
+        <TinuMascot />
       </Box>
 
       <Box sx={{ display: "flex", justifyContent: "center", pb: 2 }}>
@@ -182,10 +215,13 @@ function MomentSavedScreen({ onNavigate }: { onNavigate: () => void }) {
       <Box sx={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 2, px: 3, zIndex: 1 }}>
         <Typography sx={{ fontSize: 72, lineHeight: 1 }}>🎉</Typography>
         <Typography variant="h4" sx={{ fontWeight: 800, color: "#2d2047", textAlign: "center" }}>
-          Moment saved\!
+          Moments Saved!
         </Typography>
-        <Typography variant="body1" sx={{ color: "#7b6e8f", textAlign: "center", lineHeight: 1.6 }}>
-          We found something interesting — check your patterns
+        <Typography
+          variant="body1"
+          sx={{ color: "#7b6e8f", textAlign: "center", lineHeight: 1.6, whiteSpace: "pre-line" }}
+        >
+          {"We found something interesting\ncheck your patterns"}
         </Typography>
       </Box>
 

@@ -141,6 +141,7 @@ export default function Story() {
 
       {/* Bottom Navigation */}
       <BottomNavigation
+        showLabels
         value={navValue}
         onChange={(_e, newValue) => {
           setNavValue(newValue);
@@ -151,19 +152,25 @@ export default function Story() {
           bottom: 0,
           left: "50%",
           transform: "translateX(-50%)",
-          width: "100%",
-          maxWidth: 430,
+          width: 430,
+          maxWidth: "100%",
           borderTop: "1px solid rgba(108,77,196,0.12)",
-          bgcolor: "rgba(255,255,255,0.95)",
-          backdropFilter: "blur(8px)",
+          bgcolor: "rgba(255,255,255,0.97)",
+          backdropFilter: "blur(10px)",
+          height: 64,
           "& .Mui-selected": { color: "#6c4dc4 !important" },
-          "& .MuiBottomNavigationAction-root": { color: "rgba(0,0,0,0.54)" },
+          "& .MuiBottomNavigationAction-root": { color: "rgba(0,0,0,0.55)", minWidth: 0, px: 0.5 },
+          "& .MuiBottomNavigationAction-label": {
+            fontSize: "11px !important",
+            opacity: "1 !important",
+            fontWeight: 500,
+          },
         }}
       >
         <BottomNavigationAction label="Home" icon={<HomeIcon />} />
         <BottomNavigationAction label="Story" icon={<AutoStoriesIcon />} />
         <BottomNavigationAction label="Ask Tinu" icon={<SmartToyIcon />} />
-        <BottomNavigationAction label="Notification" icon={<NotificationsIcon />} />
+        <BottomNavigationAction label="Alerts" icon={<NotificationsIcon />} />
         <BottomNavigationAction label="Profile" icon={<PersonIcon />} />
       </BottomNavigation>
     </Box>

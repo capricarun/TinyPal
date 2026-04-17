@@ -83,11 +83,23 @@ export default function PatternSlide({
         ))}
       </Box>
 
-      {/* Icon card — fixed height 150px */}
-      <Box sx={{ display: "flex", justifyContent: "center", px: 4 }}>
+      {/* Vertically centred group: icon card + title + subtitle */}
+      <Box
+        sx={{
+          flex: 1,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          px: 4,
+          textAlign: "center",
+          gap: 2.5,
+        }}
+      >
+        {/* Icon card — 120 × 150 */}
         <Box
           sx={{
-            width: 200,
+            width: 120,
             height: 150,
             borderRadius: "28px",
             bgcolor: "#e6e0f8",
@@ -95,19 +107,20 @@ export default function PatternSlide({
             alignItems: "center",
             justifyContent: "center",
             color: "#9e9baf",
+            flexShrink: 0,
           }}
         >
           {icon}
         </Box>
-      </Box>
 
-      {/* Title & subtitle */}
-      <Box sx={{ px: 4, mt: 2.5, textAlign: "center" }}>
+        {/* Title */}
         <Typography
-          sx={{ fontWeight: 800, color: "#2d2047", mb: 1.5, lineHeight: 1.2, fontSize: 24 }}
+          sx={{ fontWeight: 800, color: "#2d2047", lineHeight: 1.2, fontSize: 24 }}
         >
           {title}
         </Typography>
+
+        {/* Subtitle */}
         <Typography
           variant="body1"
           sx={{ color: "#7b6e8f", lineHeight: 1.65, fontSize: 16, whiteSpace: "pre-line" }}
@@ -115,9 +128,6 @@ export default function PatternSlide({
           {subtitle}
         </Typography>
       </Box>
-
-      {/* Flex spacer pushes dots to bottom */}
-      <Box sx={{ flex: 1 }} />
 
       {/* Progress dots */}
       <Box sx={{ display: "flex", gap: 1, justifyContent: "center", alignItems: "center", pb: 10 }}>

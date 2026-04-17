@@ -1,65 +1,171 @@
+import { useState } from "react";
 import { useNavigate } from "react-router";
-import Component05Story from "../../imports/05Story/05Story";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import BottomNavigation from "@mui/material/BottomNavigation";
+import BottomNavigationAction from "@mui/material/BottomNavigationAction";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import HomeIcon from "@mui/icons-material/Home";
+import AutoStoriesIcon from "@mui/icons-material/AutoStories";
+import SmartToyIcon from "@mui/icons-material/SmartToy";
+import NotificationsIcon from "@mui/icons-material/Notifications";
+import PersonIcon from "@mui/icons-material/Person";
 
 export default function Story() {
   const navigate = useNavigate();
+  const [navValue, setNavValue] = useState(1);
 
   return (
-    <div 
-      className="size-full max-w-md mx-auto overflow-auto relative"
-      style={{ maxHeight: '100vh' }}
-      onClick={(e) => {
-        const target = e.target as HTMLElement;
-        
-        // Check if "Add a Moment" button was clicked
-        if (target.textContent?.includes("Add a Moment")) {
-          e.preventDefault();
-          navigate("/moment-entry");
-          return;
-        }
-        
-        // Check if "See all moments" link was clicked
-        if (target.textContent?.includes("See all moments")) {
-          e.preventDefault();
-          // Could navigate to moments list in the future
-          return;
-        }
-        
-        // Check if "What's a Pattern?" link was clicked
-        const patternsLink = target.closest('[data-name="CTA - What is a pattern?"]');
-        if (patternsLink || target.textContent?.includes("What's a Pattern") || target.textContent?.includes("What is a Pattern")) {
-          e.preventDefault();
-          navigate("/story/patterns-info");
-          return;
-        }
-        
-        // Bottom navigation clicks
-        if (target.textContent === "home" || target.textContent === "Home") {
-          e.preventDefault();
-          navigate("/");
-          return;
-        }
-        
-        if (target.textContent === "sentiment_satisfied" || target.textContent === "Ask Tinu") {
-          e.preventDefault();
-          // Could navigate to Ask Tinu in the future
-          return;
-        }
-        
-        if (target.textContent === "notifications" || target.textContent === "Notification") {
-          e.preventDefault();
-          // Could navigate to notifications in the future
-          return;
-        }
-        
-        if (target.textContent === "account_circle" || target.textContent === "Profile") {
-          e.preventDefault();
-          // Could navigate to profile in the future
-          return;
-        }
+    <Box
+      sx={{
+        width: "100%",
+        maxWidth: 430,
+        mx: "auto",
+        height: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        background: "linear-gradient(to bottom, #f6edf7, #fefaf6)",
+        position: "relative",
+        overflow: "hidden",
       }}
     >
-      <Component05Story />
-    </div>
+      {/* Scrollable content */}
+      <Box sx={{ flex: 1, overflowY: "auto", pb: 10 }}>
+        <Box sx={{ px: 3, pt: 2 }}>
+          {/* Header row */}
+          <Box sx={{ display: "flex", alignItems: "center", mb: 3 }}>
+            <IconButton onClick={() => navigate("/")} sx={{ color: "#2d2047", ml: -1 }}>
+              <ArrowBackIcon />
+            </IconButton>
+            <Box sx={{ flex: 1, display: "flex", justifyContent: "center" }}>
+              <Typography variant="h6" sx={{ fontWeight: 700, color: "#2d2047" }}>
+                Your Child's Story
+              </Typography>
+            </Box>
+            {/* Spacer to balance the back button */}
+            <Box sx={{ width: 40 }} />
+          </Box>
+
+          {/* Illustration area */}
+          <Box
+            sx={{
+              background: "linear-gradient(135deg, #e8d8f8 0%, #fde8e0 100%)",
+              borderRadius: 4,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              height: 200,
+              mb: 3,
+            }}
+          >
+            <Typography sx={{ fontSize: 80 }}>🧒</Typography>
+          </Box>
+
+          {/* Story growing section */}
+          <Typography
+            variant="h6"
+            sx={{
+              fontWeight: 700,
+              color: "#2d2047",
+              textAlign: "center",
+              mb: 3,
+              px: 2,
+              lineHeight: 1.4,
+            }}
+          >
+            Your Child's Story is growing. Here's what we see
+          </Typography>
+
+          {/* CTAs */}
+          <Button
+            variant="contained"
+            fullWidth
+            onClick={() => navigate("/moment-entry")}
+            sx={{
+              bgcolor: "#6c4dc4",
+              color: "white",
+              fontWeight: 700,
+              py: 1.5,
+              borderRadius: 36,
+              mb: 2,
+              boxShadow: "0 4px 16px rgba(108,77,196,0.28)",
+              "&:hover": { bgcolor: "#5a3db8" },
+            }}
+          >
+            Add a Moment
+          </Button>
+          <Box sx={{ textAlign: "center", mb: 4 }}>
+            <Typography
+              component="span"
+              sx={{
+                color: "#7b6e8f",
+                textDecoration: "underline",
+                cursor: "pointer",
+                fontSize: 14,
+              }}
+            >
+              See all moments
+            </Typography>
+          </Box>
+
+          {/* Patterns section */}
+          <Box sx={{ mb: 2 }}>
+            <Typography
+              variant="h3"
+              sx={{
+                fontWeight: 800,
+                color: "#6c4dc4",
+                letterSpacing: 2,
+                mb: 1,
+              }}
+            >
+              Patterns
+            </Typography>
+            <Typography
+              component="span"
+              onClick={() => navigate("/story/patterns-info")}
+              sx={{
+                color: "#7b6e8f",
+                textDecoration: "underline",
+                cursor: "pointer",
+                fontSize: 14,
+              }}
+            >
+              What's a Pattern?
+            </Typography>
+          </Box>
+        </Box>
+      </Box>
+
+      {/* Bottom Navigation */}
+      <BottomNavigation
+        value={navValue}
+        onChange={(_e, newValue) => {
+          setNavValue(newValue);
+          if (newValue === 0) navigate("/");
+        }}
+        sx={{
+          position: "fixed",
+          bottom: 0,
+          left: "50%",
+          transform: "translateX(-50%)",
+          width: "100%",
+          maxWidth: 430,
+          borderTop: "1px solid rgba(108,77,196,0.12)",
+          bgcolor: "rgba(255,255,255,0.95)",
+          backdropFilter: "blur(8px)",
+          "& .Mui-selected": { color: "#6c4dc4 !important" },
+          "& .MuiBottomNavigationAction-root": { color: "rgba(0,0,0,0.54)" },
+        }}
+      >
+        <BottomNavigationAction label="Home" icon={<HomeIcon />} />
+        <BottomNavigationAction label="Story" icon={<AutoStoriesIcon />} />
+        <BottomNavigationAction label="Ask Tinu" icon={<SmartToyIcon />} />
+        <BottomNavigationAction label="Notification" icon={<NotificationsIcon />} />
+        <BottomNavigationAction label="Profile" icon={<PersonIcon />} />
+      </BottomNavigation>
+    </Box>
   );
 }

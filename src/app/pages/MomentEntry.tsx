@@ -1,5 +1,21 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import TextField from "@mui/material/TextField";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Dialog from "@mui/material/Dialog";
+import DialogContent from "@mui/material/DialogContent";
+import DialogActions from "@mui/material/DialogActions";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import MicIcon from "@mui/icons-material/Mic";
+import CloseIcon from "@mui/icons-material/Close";
+import CheckIcon from "@mui/icons-material/Check";
+import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 
 const MOMENT_OPTIONS = [
   "Memorable Moments",
@@ -14,7 +30,6 @@ const MOMENT_OPTIONS = [
   "Custom Moment",
 ];
 
-// Generate date options: Today, Yesterday, then past 5 days
 function buildDateOptions() {
   const opts: { label: string; date: Date }[] = [];
   const now = new Date();
@@ -24,12 +39,7 @@ function buildDateOptions() {
     let label = "";
     if (i === 0) label = "Today";
     else if (i === 1) label = "Yesterday";
-    else
-      label = d.toLocaleDateString("en-GB", {
-        weekday: "short",
-        day: "numeric",
-        month: "short",
-      });
+    else label = d.toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short" });
     opts.push({ label, date: d });
   }
   return opts;
@@ -37,374 +47,206 @@ function buildDateOptions() {
 
 const DATE_OPTIONS = buildDateOptions();
 
+const selectSx = {
+  borderRadius: 8,
+  fontSize: 15,
+  fontWeight: 600,
+  color: "#2d2047",
+  "& .MuiOutlinedInput-notchedOutline": { borderColor: "#d9c8ff" },
+  "&:hover .MuiOutlinedInput-notchedOutline": { borderColor: "#6c4dc4" },
+  "&.Mui-focused .MuiOutlinedInput-notchedOutline": { borderColor: "#6c4dc4" },
+  "& .MuiSelect-icon": { color: "#6c4dc4" },
+};
+
 export default function MomentEntry() {
   const navigate = useNavigate();
   const [text, setText] = useState("");
   const [showCancelModal, setShowCancelModal] = useState(false);
-  const [showMomentMenu, setShowMomentMenu] = useState(false);
   const [selectedMoment, setSelectedMoment] = useState("Custom Moment");
-  const [showDateMenu, setShowDateMenu] = useState(false);
   const [selectedDate, setSelectedDate] = useState("Today");
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const momentDropdownRef = useRef<HTMLDivElement>(null);
-  const dateDropdownRef = useRef<HTMLDivElement>(null);
+  const textareaRef = useRef<HTMLInputElement>(null);
 
   const hasText = text.trim().length > 0;
 
-  // Close moment menu on outside click
   useEffect(() => {
-    if (!showMomentMenu) return;
-    const handler = (e: MouseEvent) => {
-      if (
-        momentDropdownRef.current &&
-        !momentDropdownRef.current.contains(e.target as Node)
-      ) {
-        setShowMomentMenu(false);
-      }
-    };
-    document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
-  }, [showMomentMenu]);
+    textareaRef.current?.focus();
+  }, []);
 
-  // Close date menu on outside click
-  useEffect(() => {
-    if (!showDateMenu) return;
-    const handler = (e: MouseEvent) => {
-      if (
-        dateDropdownRef.current &&
-        !dateDropdownRef.current.contains(e.target as Node)
-      ) {
-        setShowDateMenu(false);
-      }
-    };
-    document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
-  }, [showDateMenu]);
-
-  const handleBack = () => {
-    if (hasText) {
-      setShowCancelModal(true);
-    } else {
-      navigate(-1);
-    }
-  };
-
-  const handleCancel = () => {
-    if (hasText) {
-      setShowCancelModal(true);
-    } else {
-      navigate(-1);
-    }
-  };
-
-  const handleSave = () => {
-    if (hasText) {
-      navigate("/processing");
-    }
-  };
-
-  const handleConfirmYes = () => {
-    setShowCancelModal(false);
-    navigate(-1);
-  };
-
-  const handleConfirmNo = () => {
-    setShowCancelModal(false);
-  };
+  const handleBack = () => { hasText ? setShowCancelModal(true) : navigate(-1); };
+  const handleCancel = () => { hasText ? setShowCancelModal(true) : navigate(-1); };
+  const handleSave = () => { if (hasText) navigate("/processing"); };
+  const handleConfirmYes = () => { setShowCancelModal(false); navigate(-1); };
+  const handleConfirmNo = () => setShowCancelModal(false);
 
   return (
-    <div className="size-full max-w-md mx-auto relative" style={{ maxHeight: "100vh", background: "linear-gradient(to bottom, #f6edf7, #fefaf6)" }}>
-      {/* Main content */}
-      <div className="flex flex-col gap-[24px] items-start px-[24px] py-[12px] size-full">
+    <Box
+      sx={{
+        width: "100%",
+        maxWidth: 430,
+        mx: "auto",
+        height: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        background: "linear-gradient(to bottom, #f6edf7, #fefaf6)",
+        px: 3,
+        py: 1.5,
+        boxSizing: "border-box",
+      }}
+    >
+      {/* Header */}
+      <Box sx={{ display: "flex", alignItems: "center", mb: 3, gap: 1 }}>
+        <IconButton onClick={handleBack} size="small" sx={{ color: "#2d2047" }}>
+          <ArrowBackIosNewIcon fontSize="small" />
+        </IconButton>
+        <Typography
+          variant="subtitle1"
+          sx={{ flex: 1, textAlign: "center", fontWeight: 700, color: "#2d2047", fontSize: 17 }}
+        >
+          Capture your child's Moments
+        </Typography>
+        <Box sx={{ width: 32 }} />
+      </Box>
 
-        {/* Top section */}
-        <div className="flex flex-col gap-[40px] items-start w-full flex-1 min-h-0">
+      {/* Dropdowns row */}
+      <Box sx={{ display: "flex", justifyContent: "space-between", mb: 1.5, gap: 1.5 }}>
+        <FormControl size="small" sx={{ flex: 1 }}>
+          <Select value={selectedMoment} onChange={(e) => setSelectedMoment(e.target.value)} sx={selectSx}>
+            {MOMENT_OPTIONS.map((opt) => (
+              <MenuItem key={opt} value={opt} sx={{ fontSize: 14 }}>{opt}</MenuItem>
+            ))}
+          </Select>
+        </FormControl>
 
-          {/* Status bar */}
-          <div className="flex items-center justify-between w-full shrink-0">
-            <div className="flex items-center justify-center">
-              <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold leading-normal not-italic text-[#2d2047] text-[15px] whitespace-nowrap">10:01</p>
-            </div>
-            <div className="flex gap-[5px] items-center">
-              <div className="flex flex-col items-center justify-center w-[14px]">
-                <p className="font-['Material_Icons:Regular',sans-serif] leading-normal not-italic text-[14px] text-[rgba(0,0,0,0.8)] text-center w-full">signal_cellular_alt</p>
-              </div>
-              <div className="flex flex-col items-center justify-center w-[14px]">
-                <p className="font-['Material_Icons:Regular',sans-serif] leading-normal not-italic text-[14px] text-[rgba(0,0,0,0.8)] text-center w-full">wifi</p>
-              </div>
-              <div className="flex flex-col items-center justify-center w-[14px]">
-                <p className="font-['Material_Icons:Regular',sans-serif] leading-normal not-italic text-[14px] text-[rgba(0,0,0,0.8)] text-center w-full">battery_full</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Inner content */}
-          <div className="flex flex-col gap-[40px] items-start w-full flex-1 min-h-0">
-
-            {/* Header row */}
-            <div className="flex h-[24px] items-center justify-between w-full shrink-0">
-              <button
-                onClick={handleBack}
-                className="flex flex-col items-center justify-center w-[24px] cursor-pointer"
-                style={{ background: "none", border: "none", padding: 0 }}
-              >
-                <p className="font-['Material_Icons:Regular',sans-serif] leading-normal not-italic text-[24px] text-[rgba(0,0,0,0.84)] text-center w-full">keyboard_arrow_left</p>
-              </button>
-              <div className="flex-1 min-w-0 flex items-center justify-center px-[10px]">
-                <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold leading-normal not-italic text-[#2d2047] text-[18px] text-center whitespace-nowrap">Capture your child's Moments</p>
-              </div>
-              <div className="w-[20px] h-[20px] shrink-0" />
-            </div>
-
-            {/* Input area */}
-            <div className="flex flex-col gap-[8px] items-start w-full flex-1 min-h-0">
-              {/* Dropdowns row */}
-              <div className="flex items-start justify-between w-full shrink-0">
-
-                {/* Custom Moment dropdown — anchor */}
-                <div className="relative" ref={momentDropdownRef}>
-                  <div
-                    className="flex gap-[10px] items-center justify-center px-[12px] py-[6px] relative rounded-[16px] cursor-pointer select-none"
-                    onClick={() => setShowMomentMenu((v) => !v)}
-                  >
-                    <div className="absolute border border-[#d9c8ff] border-solid inset-0 pointer-events-none rounded-[16px]" />
-                    <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold leading-normal not-italic text-[16px] text-black text-center whitespace-nowrap">
-                      {selectedMoment}
-                    </p>
-                    <p className="font-['Material_Icons:Regular',sans-serif] leading-normal not-italic text-[20px] text-black text-center whitespace-nowrap"
-                      style={{ transition: "transform 0.2s", transform: showMomentMenu ? "rotate(180deg)" : "rotate(0deg)" }}>
-                      arrow_drop_down
-                    </p>
-                  </div>
-
-                  {/* Dropdown menu */}
-                  {showMomentMenu && (
-                    <div
-                      className="absolute left-0 top-[calc(100%+4px)] z-50 rounded-[8px] overflow-hidden"
-                      style={{
-                        minWidth: 220,
-                        background: "white",
-                        boxShadow: "0px 1px 2px 0px rgba(0,0,0,0.3), 0px 2px 6px 0px rgba(0,0,0,0.15)",
-                      }}
-                    >
-                      {MOMENT_OPTIONS.map((option) => (
-                        <div
-                          key={option}
-                          className="flex items-center justify-between px-[8px] cursor-pointer"
-                          style={{ minHeight: 40 }}
-                          onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(108,77,196,0.06)")}
-                          onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
-                          onClick={() => {
-                            setSelectedMoment(option);
-                            setShowMomentMenu(false);
-                          }}
-                        >
-                          <p
-                            className="font-['Roboto:Regular',sans-serif] font-normal leading-[16px] text-[14px] text-[rgba(0,0,0,0.87)] whitespace-nowrap px-[8px] py-[8px]"
-                            style={{ fontVariationSettings: "'wdth' 100" }}
-                          >
-                            {option}
-                          </p>
-                          {option === selectedMoment && (
-                            <p
-                              className="font-['Material_Icons_Outlined:Regular','Noto_Sans:Regular',sans-serif] leading-[16px] text-[14px] text-[rgba(0,0,0,0.54)] px-[8px]"
-                              style={{ fontVariationSettings: "'CTGR' 0, 'wdth' 100, 'wght' 400" }}
-                            >
-                              check
-                            </p>
-                          )}
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-
-                {/* Today dropdown */}
-                <div className="relative" ref={dateDropdownRef}>
-                  <div
-                    className="flex gap-[10px] items-center justify-center pl-[12px] pr-[8px] py-[6px] relative rounded-[16px] cursor-pointer select-none"
-                    onClick={() => setShowDateMenu((v) => !v)}
-                  >
-                    <div className="absolute border border-[#d9c8ff] border-solid inset-0 pointer-events-none rounded-[16px]" />
-                    <p className="font-['Material_Icons:Regular',sans-serif] leading-normal not-italic text-[16px] text-black text-center whitespace-nowrap">calendar_today</p>
-                    <p className="font-['Inter:Regular',sans-serif] font-normal leading-normal not-italic text-[16px] text-black text-center whitespace-nowrap">
-                      {selectedDate}
-                    </p>
-                    <p
-                      className="font-['Material_Icons:Regular',sans-serif] leading-normal not-italic text-[20px] text-black text-center whitespace-nowrap"
-                      style={{ transition: "transform 0.2s", transform: showDateMenu ? "rotate(180deg)" : "rotate(0deg)" }}
-                    >
-                      arrow_drop_down
-                    </p>
-                  </div>
-
-                  {/* Date dropdown list */}
-                  {showDateMenu && (
-                    <div
-                      className="absolute right-0 top-[calc(100%+4px)] z-50 rounded-[8px] overflow-hidden"
-                      style={{
-                        minWidth: 180,
-                        background: "white",
-                        boxShadow: "0px 1px 2px 0px rgba(0,0,0,0.3), 0px 2px 6px 0px rgba(0,0,0,0.15)",
-                      }}
-                    >
-                      {DATE_OPTIONS.map((opt) => (
-                        <div
-                          key={opt.label}
-                          className="flex items-center justify-between px-[8px] cursor-pointer"
-                          style={{ minHeight: 40 }}
-                          onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(108,77,196,0.06)")}
-                          onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
-                          onClick={() => {
-                            setSelectedDate(opt.label);
-                            setShowDateMenu(false);
-                          }}
-                        >
-                          <p
-                            className="font-['Roboto:Regular',sans-serif] font-normal leading-[16px] text-[14px] text-[rgba(0,0,0,0.87)] whitespace-nowrap px-[8px] py-[8px]"
-                          >
-                            {opt.label}
-                          </p>
-                          {opt.label === selectedDate && (
-                            <p className="font-['Material_Icons_Outlined:Regular',sans-serif] leading-[16px] text-[14px] text-[rgba(0,0,0,0.54)] px-[8px]">
-                              check
-                            </p>
-                          )}
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              {/* Textarea */}
-              <div className="bg-white flex-1 min-h-0 relative rounded-[16px] w-full">
-                <div className="absolute border border-[#d9c8ff] border-solid inset-0 pointer-events-none rounded-[16px]" />
-                <div className="flex flex-col items-start p-[16px] size-full">
-                  <textarea
-                    ref={textareaRef}
-                    value={text}
-                    onChange={(e) => setText(e.target.value)}
-                    placeholder="Jiyu didnt finish dinner, but seemed quieter than normal ..."
-                    className="flex-1 w-full resize-none bg-transparent outline-none border-none font-['Inter:Regular',sans-serif] font-normal leading-[1.8] not-italic text-[16px] text-[rgba(0,0,0,0.84)] placeholder:text-[rgba(0,0,0,0.38)]"
-                    style={{ minHeight: 0 }}
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Bottom action bar */}
-        <div className="flex h-[43px] items-start justify-between w-full shrink-0">
-          {/* Record button */}
-          <div
-            className="relative rounded-[36px] self-stretch shrink-0 cursor-pointer"
-            style={{ background: hasText ? "rgba(108,77,196,0.5)" : "#6c4dc4" }}
+        <FormControl size="small" sx={{ minWidth: 130 }}>
+          <Select
+            value={selectedDate}
+            onChange={(e) => setSelectedDate(e.target.value)}
+            startAdornment={<CalendarTodayIcon sx={{ fontSize: 16, color: "#6c4dc4", mr: 0.5 }} />}
+            sx={selectSx}
           >
-            <div className="absolute border border-[#b49ae8] border-solid inset-0 pointer-events-none rounded-[36px]" />
-            <div className="flex flex-row items-center size-full">
-              <div className="flex h-full items-center px-[16px] py-[12px]">
-                <div className="flex gap-[8px] items-center">
-                  <p className="font-['Material_Icons:Regular',sans-serif] leading-normal not-italic text-[16px] text-center whitespace-nowrap"
-                    style={{ color: hasText ? "rgba(255,255,255,0.84)" : "white" }}>mic</p>
-                  <p className="font-['Inter:Regular',sans-serif] font-normal leading-normal not-italic text-[16px] text-center whitespace-nowrap"
-                    style={{ color: hasText ? "rgba(255,255,255,0.84)" : "white" }}>Record</p>
-                </div>
-              </div>
-            </div>
-          </div>
+            {DATE_OPTIONS.map((opt) => (
+              <MenuItem key={opt.label} value={opt.label} sx={{ fontSize: 14 }}>{opt.label}</MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      </Box>
 
-          {/* Cancel + Save buttons */}
-          <div className="flex gap-[8px] items-center self-stretch shrink-0">
-            {/* Cancel */}
-            <button
-              onClick={handleCancel}
-              className="h-full relative rounded-[36px] shrink-0 cursor-pointer"
-              style={{ background: "none", border: "none", padding: 0 }}
-            >
-              <div className="absolute border border-[#b49ae8] border-solid inset-0 pointer-events-none rounded-[36px]" />
-              <div className="flex flex-row items-center size-full">
-                <div className="flex h-full items-center px-[16px] py-[12px]">
-                  <div className="flex gap-[8px] items-center">
-                    <p className="font-['Material_Icons:Regular',sans-serif] leading-normal not-italic text-[16px] text-[rgba(0,0,0,0.84)] text-center whitespace-nowrap">close</p>
-                    <p className="font-['Inter:Regular',sans-serif] font-normal leading-normal not-italic text-[16px] text-[rgba(0,0,0,0.84)] text-center whitespace-nowrap">Cancel</p>
-                  </div>
-                </div>
-              </div>
-            </button>
+      {/* Textarea */}
+      <Box sx={{ flex: 1, display: "flex", flexDirection: "column", minHeight: 0, mb: 2 }}>
+        <TextField
+          inputRef={textareaRef}
+          multiline
+          fullWidth
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          placeholder="Jiyu didn't finish dinner, but seemed quieter than normal ..."
+          variant="outlined"
+          sx={{
+            flex: 1,
+            "& .MuiOutlinedInput-root": {
+              height: "100%",
+              alignItems: "flex-start",
+              bgcolor: "white",
+              borderRadius: 4,
+            },
+            "& .MuiInputBase-inputMultiline": { height: "100% \!important", overflowY: "auto \!important" },
+          }}
+          InputProps={{ sx: { height: "100%", alignItems: "flex-start" } }}
+        />
+      </Box>
 
-            {/* Save */}
-            <button
-              onClick={handleSave}
-              disabled={!hasText}
-              className="h-full relative rounded-[36px] shrink-0"
-              style={{
-                background: hasText ? "#6c4dc4" : "rgba(108,77,196,0.5)",
-                border: "none",
-                padding: 0,
-                cursor: hasText ? "pointer" : "default",
-              }}
-            >
-              <div className="absolute border border-[#b49ae8] border-solid inset-0 pointer-events-none rounded-[36px]" />
-              <div className="flex flex-row items-center size-full">
-                <div className="flex h-full items-center px-[16px] py-[12px]">
-                  <div className="flex gap-[8px] items-center">
-                    <p className="font-['Material_Icons:Regular',sans-serif] leading-normal not-italic text-[16px] text-center text-white whitespace-nowrap">check</p>
-                    <p className="font-['Inter:Regular',sans-serif] font-normal leading-normal not-italic text-[16px] text-center text-white whitespace-nowrap">Save</p>
-                  </div>
-                </div>
-              </div>
-            </button>
-          </div>
-        </div>
+      {/* Action bar */}
+      <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 1.5 }}>
+        {/* Record */}
+        <Button
+          variant="contained"
+          startIcon={<MicIcon />}
+          sx={{
+            bgcolor: hasText ? "rgba(108,77,196,0.5)" : "#6c4dc4",
+            color: "white",
+            borderRadius: 8,
+            px: 2.5,
+            py: 1.2,
+            boxShadow: "none",
+            "&:hover": { bgcolor: hasText ? "rgba(108,77,196,0.6)" : "#5a3db8", boxShadow: "none" },
+          }}
+        >
+          Record
+        </Button>
 
-        {/* Home indicator */}
-        <div className="flex flex-col items-center w-full shrink-0">
-          <div className="bg-[#b0a3c4] h-[5px] opacity-30 rounded-[3px] w-[134px]" />
-        </div>
-      </div>
+        <Box sx={{ display: "flex", gap: 1 }}>
+          {/* Cancel */}
+          <Button
+            variant="outlined"
+            startIcon={<CloseIcon />}
+            onClick={handleCancel}
+            sx={{
+              borderColor: "#b49ae8",
+              color: "#2d2047",
+              borderRadius: 8,
+              px: 2,
+              py: 1.2,
+              "&:hover": { borderColor: "#6c4dc4", bgcolor: "rgba(108,77,196,0.05)" },
+            }}
+          >
+            Cancel
+          </Button>
 
-      {/* Cancel confirmation modal */}
-      {showCancelModal && (
-        <>
-          <div className="absolute inset-0 bg-[rgba(0,0,0,0.35)]" onClick={handleConfirmNo} />
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white flex flex-col gap-[40px] items-center justify-center px-[24px] py-[40px] rounded-[16px] w-[calc(100%-48px)] max-w-[382px]">
-            <div className="flex flex-col font-['Inter:Regular',sans-serif] font-normal gap-[24px] items-center leading-normal not-italic text-black text-center w-full">
-              <p className="text-[20px] w-full">Are you Sure you want to cancel?</p>
-              <p className="text-[14px] w-full">You have unsaved changes, canceling will save them as a draft.</p>
-            </div>
-            <div className="flex gap-[24px] items-start">
-              <button
-                onClick={handleConfirmNo}
-                className="flex h-[44px] items-center px-[24px] py-[12px] relative rounded-[36px] cursor-pointer"
-                style={{ background: "none", border: "none", padding: 0 }}
-              >
-                <div className="absolute border border-[#b49ae8] border-solid inset-0 pointer-events-none rounded-[36px]" />
-                <div className="flex h-[44px] items-center px-[24px] py-[12px]">
-                  <div className="flex gap-[8px] items-center">
-                    <p className="font-['Material_Icons:Regular',sans-serif] leading-normal not-italic text-[16px] text-black text-center whitespace-nowrap">close</p>
-                    <p className="font-['Inter:Regular',sans-serif] font-normal leading-normal not-italic text-[16px] text-black text-center whitespace-nowrap">No</p>
-                  </div>
-                </div>
-              </button>
-              <button
-                onClick={handleConfirmYes}
-                className="bg-[#6c4dc4] flex h-[44px] items-center px-[24px] py-[12px] relative rounded-[36px] cursor-pointer"
-                style={{ border: "none", padding: 0 }}
-              >
-                <div className="absolute border border-[#b49ae8] border-solid inset-0 pointer-events-none rounded-[36px]" />
-                <div className="flex h-[44px] items-center px-[24px] py-[12px]">
-                  <div className="flex gap-[8px] items-center">
-                    <p className="font-['Material_Icons:Regular',sans-serif] leading-normal not-italic text-[16px] text-center text-white whitespace-nowrap">check</p>
-                    <p className="font-['Inter:Regular',sans-serif] font-normal leading-normal not-italic text-[16px] text-center text-white whitespace-nowrap">Yes</p>
-                  </div>
-                </div>
-              </button>
-            </div>
-          </div>
-        </>
-      )}
-    </div>
+          {/* Save */}
+          <Button
+            variant="contained"
+            startIcon={<CheckIcon />}
+            onClick={handleSave}
+            disabled={!hasText}
+            sx={{
+              bgcolor: hasText ? "#6c4dc4" : "rgba(108,77,196,0.38)",
+              color: "white",
+              borderRadius: 8,
+              px: 2,
+              py: 1.2,
+              boxShadow: "none",
+              "&:hover": { bgcolor: hasText ? "#5a3db8" : "rgba(108,77,196,0.38)", boxShadow: "none" },
+            }}
+          >
+            Save
+          </Button>
+        </Box>
+      </Box>
+
+      {/* Home indicator */}
+      <Box sx={{ display: "flex", justifyContent: "center", pb: 1 }}>
+        <Box sx={{ width: 134, height: 5, bgcolor: "#b0a3c4", opacity: 0.3, borderRadius: 3 }} />
+      </Box>
+
+      {/* Cancel confirmation Dialog */}
+      <Dialog open={showCancelModal} onClose={handleConfirmNo} maxWidth="xs" fullWidth>
+        <DialogContent sx={{ textAlign: "center", pt: 4, pb: 2 }}>
+          <Typography variant="h6" sx={{ fontWeight: 700, mb: 1.5, color: "#2d2047" }}>
+            Are you sure you want to cancel?
+          </Typography>
+          <Typography variant="body2" sx={{ color: "#7b6e8f" }}>
+            You have unsaved changes, canceling will save them as a draft.
+          </Typography>
+        </DialogContent>
+        <DialogActions sx={{ justifyContent: "center", gap: 2, pb: 3 }}>
+          <Button
+            variant="outlined"
+            startIcon={<CloseIcon />}
+            onClick={handleConfirmNo}
+            sx={{ borderColor: "#b49ae8", color: "#2d2047", px: 3, borderRadius: 8 }}
+          >
+            No
+          </Button>
+          <Button
+            variant="contained"
+            startIcon={<CheckIcon />}
+            onClick={handleConfirmYes}
+            sx={{ bgcolor: "#6c4dc4", px: 3, borderRadius: 8, boxShadow: "none" }}
+          >
+            Yes
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </Box>
   );
 }

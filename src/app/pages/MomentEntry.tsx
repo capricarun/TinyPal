@@ -149,9 +149,12 @@ export default function MomentEntry() {
               bgcolor: "white",
               borderRadius: "16px",
             },
-            "& .MuiInputBase-inputMultiline": { height: "100% \!important", overflowY: "auto \!important" },
+            "& .MuiOutlinedInput-notchedOutline": {
+              borderRadius: "16px",
+            },
+            "& .MuiInputBase-inputMultiline": { height: "100%", overflowY: "auto" },
           }}
-          InputProps={{ sx: { height: "100%", alignItems: "flex-start" } }}
+          InputProps={{ sx: { height: "100%", alignItems: "flex-start", borderRadius: "16px" } }}
         />
       </Box>
 

@@ -211,13 +211,13 @@ export default function Home() {
               sx={{
                 flexShrink: 0,
                 bgcolor: activeGoal === goal.label ? "#6c4dc4" : "#ffffff",
-                // Active: white on #6c4dc4 = 5.5:1 ✅ | Inactive: #000000 on white = 21:1 ✅
-                color: activeGoal === goal.label ? "#ffffff" : "#000000",
+                // Active: white on #6c4dc4 = 5.5:1 ✅ | Inactive: rgba(0,0,0,0.56) on white ✅
+                color: activeGoal === goal.label ? "#ffffff" : "rgba(0,0,0,0.56)",
                 borderColor: "#c4aff0",
                 fontWeight: 600,
                 boxShadow: "0 1px 4px rgba(0,0,0,0.07)",
                 "& .MuiChip-icon": {
-                  color: activeGoal === goal.label ? "#ffffff" : "#000000",
+                  color: activeGoal === goal.label ? "#ffffff" : "rgba(0,0,0,0.56)",
                 },
                 "&:hover": {
                   bgcolor: activeGoal === goal.label ? "#5a3db8" : "#f0eaff",

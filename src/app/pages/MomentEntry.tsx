@@ -48,7 +48,7 @@ function buildDateOptions() {
 const DATE_OPTIONS = buildDateOptions();
 
 const selectSx = {
-  borderRadius: 8,
+  borderRadius: "16px",
   fontSize: 15,
   fontWeight: 600,
   color: "#2d2047",
@@ -147,7 +147,7 @@ export default function MomentEntry() {
               height: "100%",
               alignItems: "flex-start",
               bgcolor: "white",
-              borderRadius: 4,
+              borderRadius: "16px",
             },
             "& .MuiInputBase-inputMultiline": { height: "100% \!important", overflowY: "auto \!important" },
           }}
@@ -164,7 +164,7 @@ export default function MomentEntry() {
           sx={{
             bgcolor: hasText ? "rgba(108,77,196,0.5)" : "#6c4dc4",
             color: "white",
-            borderRadius: 8,
+            borderRadius: "16px",
             px: 2.5,
             py: 1.2,
             boxShadow: "none",
@@ -183,7 +183,7 @@ export default function MomentEntry() {
             sx={{
               borderColor: "#b49ae8",
               color: "#2d2047",
-              borderRadius: 8,
+              borderRadius: "16px",
               px: 2,
               py: 1.2,
               "&:hover": { borderColor: "#6c4dc4", bgcolor: "rgba(108,77,196,0.05)" },
@@ -201,7 +201,7 @@ export default function MomentEntry() {
             sx={{
               bgcolor: hasText ? "#6c4dc4" : "rgba(108,77,196,0.38)",
               color: "white",
-              borderRadius: 8,
+              borderRadius: "16px",
               px: 2,
               py: 1.2,
               boxShadow: "none",

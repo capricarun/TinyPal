@@ -88,7 +88,7 @@ export default function Story() {
               color: "white",
               fontWeight: 700,
               py: 1.5,
-              borderRadius: 36,
+              borderRadius: "16px",
               mb: 2,
               boxShadow: "0 4px 16px rgba(108,77,196,0.28)",
               "&:hover": { bgcolor: "#5a3db8" },

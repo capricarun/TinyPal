@@ -140,7 +140,7 @@ export default function Home() {
                   fontWeight: 700,
                   mb: 1.5,
                   "&:hover": { bgcolor: "rgba(255,255,255,0.92)" },
-                  borderRadius: "36px",
+                  borderRadius: "16px",
                   boxShadow: "none",
                 }}
               >

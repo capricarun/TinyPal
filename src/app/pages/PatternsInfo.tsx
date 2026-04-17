@@ -119,7 +119,7 @@ export default function PatternsInfo() {
           onClick={() => navigate(-1)}
           sx={{
             bgcolor: "#6c4dc4",
-            borderRadius: 4,
+            borderRadius: "16px",
             py: 1.8,
             fontSize: 16,
             fontWeight: 700,

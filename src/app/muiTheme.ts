@@ -33,7 +33,7 @@ export const tinyPalTheme = createTheme({
   components: {
     MuiButton: {
       styleOverrides: {
-        root: { borderRadius: 36, textTransform: "none" as const, fontWeight: 600, fontSize: 16 },
+        root: { borderRadius: 16, textTransform: "none" as const, fontWeight: 600, fontSize: 16 },
         containedPrimary: {
           background: "#6c4dc4",
           boxShadow: "0 4px 16px rgba(108,77,196,0.25)",

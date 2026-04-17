@@ -41,7 +41,7 @@ export default function Pattern4() {
             onClick={() => navigate("/")}
             sx={{
               bgcolor: "#6c4dc4",
-              borderRadius: 4,
+              borderRadius: "16px",
               py: 1.8,
               fontSize: 17,
               fontWeight: 700,

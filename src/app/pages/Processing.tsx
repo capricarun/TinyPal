@@ -183,7 +183,7 @@ function MomentSavedScreen({ onNavigate }: { onNavigate: () => void }) {
           fullWidth
           variant="contained"
           onClick={onNavigate}
-          sx={{ bgcolor: "#6c4dc4", borderRadius: 4, py: 1.8, mb: 1, fontSize: 17, boxShadow: "0 4px 20px rgba(108,77,196,0.32)" }}
+          sx={{ bgcolor: "#6c4dc4", borderRadius: "16px", py: 1.8, mb: 1, fontSize: 17, boxShadow: "0 4px 20px rgba(108,77,196,0.32)" }}
         >
           See insights
         </Button>

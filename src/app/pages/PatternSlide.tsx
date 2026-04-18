@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
@@ -8,7 +9,7 @@ interface PatternSlideProps {
   patternNumber: 1 | 2 | 3 | 4;
   title: string;
   subtitle: string;
-  icon: React.ReactNode;
+  icon: ReactNode;
   progress: number;
   onClose: () => void;
 }
